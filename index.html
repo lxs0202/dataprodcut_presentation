@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Presetation on Iris prediction application</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Presetation on Iris prediction application">
+  <meta name="author" content="Stuart Lyu">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Presetation on Iris prediction application</h1>
+    <h2></h2>
+    <p>Stuart Lyu<br/>Data Analyst</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Idea behind the application</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Predict iris species based on sepal length, sepal width, petal legth,petal width.</li>
+<li>Based on the R default Iris dataset.</li>
+<li>Utilize Randomforest for predictive modelling.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Building model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>break data set into training set and test set.</li>
+<li>apply randomforest on the training set </li>
+</ol>
+
+<pre><code class="r">set.seed(1234)
+ind &lt;- sample(2, nrow(iris), replace=TRUE, prob=c(0.7, 0.3))
+trainData &lt;- iris[ind==1,]
+testData &lt;- iris[ind==2,]
+library(randomForest)
+rf &lt;- randomForest(Species ~ ., data=trainData, ntree=100, proximity=TRUE)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>model performance</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>we apply the model to the test dataset and see the performance is pretty good.</p>
+
+<pre><code>##             
+## irisPred     setosa versicolor virginica
+##   setosa         10          0         0
+##   versicolor      0         12         2
+##   virginica       0          0        14
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>link model to web input</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>we then link the web input to our built model to show the predicting result</p>
+
+<pre><code class="r">library(shiny)
+predictiris &lt;- function(sepal_length, sepal_width, petal_length,petal_width,model=rf){
+  data &lt;- data.frame(sepal_length)
+  data$&quot;Sepal.Width&quot; &lt;- sepal_width
+  data$&quot;Petal.Length&quot; &lt;- petal_length
+  data$&quot;Petal.Width&quot; &lt;- petal_width
+  names(data)[1] &lt;-&quot;Sepal.Length&quot;;
+  irisPred &lt;- predict(rf, data)
+  return(as.character(irisPred))
+}
+
+
+shinyServer(
+  function(input, output) {
+    output$inputValue &lt;- renderPrint({paste(input$sepal_length,input$sepal_width,input$petal_length,input$petal_width, sep=&quot;,&quot;)})
+    output$prediction &lt;- renderPrint({predictiris(input$sepal_length,input$sepal_width,input$petal_length,input$petal_width)})
+  }
+  )
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Idea behind the application'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Building model'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='model performance'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='link model to web input'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
