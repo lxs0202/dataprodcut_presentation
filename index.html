@@ -1,67 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Presetation on Iris prediction application</title>
-  <meta charset="utf-8">
-  <meta name="description" content="Presetation on Iris prediction application">
-  <meta name="author" content="Stuart Lyu">
-  <meta name="generator" content="slidify" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
-    media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
-
+	<meta charset='utf-8'>
+	<title>Presetation on Iris prediction application</title>
+	<meta name="description" content="Presetation on Iris prediction application">
+	<meta name="author" content="Stuart Lyu">
+	<meta name="generator" content="slidify" />
+	
+	<!-- LOAD STYLE SHEETS -->
+	<link rel="stylesheet" href="libraries/frameworks/html5slides/default/styles.css">
+	<link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />  <link rel="stylesheet" href = "assets/css/ribbons.css">
   
-  <!-- Grab CDN jQuery, fall back to local if offline -->
-  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
-  <script data-main="libraries/frameworks/io2012/js/slides" 
-    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
-  </script>
-  
-  
-
 </head>
-<body style="opacity: 0">
-  <slides class="layout-widescreen">
-    
-    <!-- LOGO SLIDE -->
-        <slide class="title-slide segue nobackground">
-  <hgroup class="auto-fadein">
-    <h1>Presetation on Iris prediction application</h1>
-    <h2></h2>
-    <p>Stuart Lyu<br/>Data Analyst</p>
-  </hgroup>
-  <article></article>  
-</slide>
-    
-
-    <!-- SLIDES -->
-    <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Idea behind the application</h2>
-  </hgroup>
-  <article data-timings="">
-    <ol>
+<body style='display: none'>
+	<section class='slides layout-regular template-regular'>
+     <article class="" id="slide-1" style="background:;">
+  <h3>Idea behind the application</h3>
+  <ol>
 <li>Predict iris species based on sepal length, sepal width, petal legth,petal width.</li>
 <li>Based on the R default Iris dataset.</li>
 <li>Utilize Randomforest for predictive modelling.</li>
 </ol>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</article>
 
-<slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>Building model</h2>
-  </hgroup>
-  <article data-timings="">
-    <ol>
+<article class="class" id="id" style="background:;">
+  <h3>Building model</h3>
+  <ol>
 <li>break data set into training set and test set.</li>
 <li>apply randomforest on the training set </li>
 </ol>
@@ -74,16 +39,11 @@ library(randomForest)
 rf &lt;- randomForest(Species ~ ., data=trainData, ntree=100, proximity=TRUE)
 </code></pre>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</article>
 
-<slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>model performance</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>we apply the model to the test dataset and see the performance is pretty good.</p>
+<article class="class" id="id" style="background:;">
+  <h3>model performance</h3>
+  <p>we apply the model to the test dataset and see the performance is pretty good.</p>
 
 <pre><code>##             
 ## irisPred     setosa versicolor virginica
@@ -92,16 +52,11 @@ rf &lt;- randomForest(Species ~ ., data=trainData, ntree=100, proximity=TRUE)
 ##   virginica       0          0        14
 </code></pre>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</article>
 
-<slide class="class" id="id" style="background:;">
-  <hgroup>
-    <h2>link model to web input</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>we then link the web input to our built model to show the predicting result</p>
+<article class="class" id="id" style="background:;">
+  <h3>link model to web input</h3>
+  <p>we then link the web input to our built model to show the predicting result</p>
 
 <pre><code class="r">library(shiny)
 predictiris &lt;- function(sepal_length, sepal_width, petal_length,petal_width,model=rf){
@@ -123,51 +78,86 @@ shinyServer(
   )
 </code></pre>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+</article>
 
-    <slide class="backdrop"></slide>
-  </slides>
-  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
-    <ul>
-      <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Idea behind the application'>
-         1
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Building model'>
-         2
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='model performance'>
-         3
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='link model to web input'>
-         4
-      </a>
-    </li>
-  </ul>
-  </div>  <!--[if IE]>
-    <script 
-      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
-    </script>
-    <script>CFInstall.check({mode: 'overlay'});</script>
-  <![endif]-->
+<article class="class" id="id" style="background:;">
+  <h3>web front end</h3>
+  <p>our web front end is very straight forward. Just inputs of 4 Iris attributes and a submit button</p>
+
+<pre><code class="r">library(shiny)
+shinyUI(
+  pageWithSidebar(
+    # Application title
+    headerPanel(&quot;Iris prediction&quot;),
+    sidebarPanel(
+      numericInput(&#39;sepal_length&#39;, &#39;Sepal Length&#39;, 1, min = 0.1, max =10 , step = 0.1),
+      numericInput(&#39;sepal_width&#39;, &#39;Sepal Width&#39;, 1, min = 0.1, max =10 , step = 0.1),
+      numericInput(&#39;petal_length&#39;, &#39;Petal Length&#39;, 1, min = 0.1, max =10 , step = 0.1),
+      numericInput(&#39;petal_width&#39;, &#39;Petal Width&#39;, 1, min = 0.1, max =10 , step = 0.1),
+      submitButton(&#39;Submit&#39;)
+    ),
+    mainPanel(
+      h3(&#39;Results of prediction&#39;),
+      h4(&#39;You entered&#39;),
+      verbatimTextOutput(&quot;inputValue&quot;),
+      h4(&#39;Which resulted in a prediction of &#39;),
+      verbatimTextOutput(&quot;prediction&quot;),
+      h4(&#39;User Guide&#39;),
+      verbatimTextOutput(&quot;instruction&quot;)
+    )
+  )
+)
+</code></pre>
+
+<p>&lt;!--html_preserve--&gt;<div class="container-fluid"></p>
+
+<div class="row-fluid">
+<div class="span12" style="padding: 10px 0px;">
+<h1>Iris prediction</h1>
+</div>
+
+<p></div></p>
+
+<div class="row-fluid">
+<div class="span4">
+<form class="well">
+<label for="sepal_length">Sepal Length</label>
+<input id="sepal_length" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<label for="sepal_width">Sepal Width</label>
+<input id="sepal_width" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<label for="petal_length">Petal Length</label>
+<input id="petal_length" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<label for="petal_width">Petal Width</label>
+<input id="petal_width" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
+<p></form>
+</div></p>
+
+<div class="span8">
+<h3>Results of prediction</h3>
+<h4>You entered</h4>
+<pre id="inputValue" class="shiny-text-output"></pre>
+<h4>Which resulted in a prediction of </h4>
+<pre id="prediction" class="shiny-text-output"></pre>
+<h4>User Guide</h4>
+<pre id="instruction" class="shiny-text-output"></pre>
+</div>
+
+<p></div>
+</div>&lt;!--/html_preserve--&gt;</p>
+
+</article>
+
+  </section>
 </body>
-  <!-- Load Javascripts for Widgets -->
-  
-  <!-- LOAD HIGHLIGHTER JS FILES -->
-  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
-   
-  </html>
+  <!-- LOAD JAVASCRIPTS  -->
+	<script src='libraries/frameworks/html5slides/default/slides.js'></script>
+	<!-- LOAD HIGHLIGHTER JS FILES -->
+	<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+	 
+	</html>

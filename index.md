@@ -3,7 +3,7 @@ title       : Presetation on Iris prediction application
 subtitle    : 
 author      : Stuart Lyu
 job         : Data Analyst
-framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+framework   : html5slides       # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 widgets     : []            # {mathjax, quiz, bootstrap}
@@ -78,4 +78,72 @@ shinyServer(
   )
 ```
 
+--- .class #id 
+
+
+## web front end
+
+our web front end is very straight forward. Just inputs of 4 Iris attributes and a submit button
+
+
+
+```r
+library(shiny)
+shinyUI(
+  pageWithSidebar(
+    # Application title
+    headerPanel("Iris prediction"),
+    sidebarPanel(
+      numericInput('sepal_length', 'Sepal Length', 1, min = 0.1, max =10 , step = 0.1),
+      numericInput('sepal_width', 'Sepal Width', 1, min = 0.1, max =10 , step = 0.1),
+      numericInput('petal_length', 'Petal Length', 1, min = 0.1, max =10 , step = 0.1),
+      numericInput('petal_width', 'Petal Width', 1, min = 0.1, max =10 , step = 0.1),
+      submitButton('Submit')
+    ),
+    mainPanel(
+      h3('Results of prediction'),
+      h4('You entered'),
+      verbatimTextOutput("inputValue"),
+      h4('Which resulted in a prediction of '),
+      verbatimTextOutput("prediction"),
+      h4('User Guide'),
+      verbatimTextOutput("instruction")
+    )
+  )
+)
+```
+
+<!--html_preserve--><div class="container-fluid">
+<div class="row-fluid">
+<div class="span12" style="padding: 10px 0px;">
+<h1>Iris prediction</h1>
+</div>
+</div>
+<div class="row-fluid">
+<div class="span4">
+<form class="well">
+<label for="sepal_length">Sepal Length</label>
+<input id="sepal_length" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<label for="sepal_width">Sepal Width</label>
+<input id="sepal_width" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<label for="petal_length">Petal Length</label>
+<input id="petal_length" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<label for="petal_width">Petal Width</label>
+<input id="petal_width" type="number" value="1" min="0.1" max="10" step="0.1"/>
+<div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</form>
+</div>
+<div class="span8">
+<h3>Results of prediction</h3>
+<h4>You entered</h4>
+<pre id="inputValue" class="shiny-text-output"></pre>
+<h4>Which resulted in a prediction of </h4>
+<pre id="prediction" class="shiny-text-output"></pre>
+<h4>User Guide</h4>
+<pre id="instruction" class="shiny-text-output"></pre>
+</div>
+</div>
+</div><!--/html_preserve-->
 
